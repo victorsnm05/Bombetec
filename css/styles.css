@@ -933,6 +933,32 @@ section:nth-child(even) {
     }
 }
 
+/* Para móvil en horizontal */
+@media (max-height: 500px) {
+    .chat-box {
+        position: fixed;
+        bottom: 10px;
+        right: 100px;
+        width: 300px;
+        height: 85vh;
+        max-height: 300px;
+        transform-origin: bottom right;
+        z-index: 10001;
+    }
+
+    /* Hacemos todo un poco más compacto */
+    .chat-messages {
+        flex: 1;
+        padding: 10px;
+    }
+    .chat-header {
+        padding: 8px 15px;
+    }
+    .chat-input-area {
+        padding: 8px;
+    }
+}
+
 @media (hover: hover) {
 
     /* Navbar */
