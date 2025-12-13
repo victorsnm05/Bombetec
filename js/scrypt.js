@@ -162,6 +162,34 @@ if (statsSection) {
     statsObserver.observe(statsSection);
 }
 
+// EVITAR APERTURA DOBLE FaQ
+const myAccordion = document.getElementById('accordionFAQ');
+if (myAccordion) {
+    // Al empezar a abrirse, bloqueo los clics
+    myAccordion.addEventListener('show.bs.collapse', function () {
+        disableAccordionClicks();
+    });
+    myAccordion.addEventListener('hide.bs.collapse', function () {
+        disableAccordionClicks();
+    });
+
+    // Al terminar, desbloqueo
+    myAccordion.addEventListener('shown.bs.collapse', function () {
+        enableAccordionClicks();
+    });
+    myAccordion.addEventListener('hidden.bs.collapse', function () {
+        enableAccordionClicks();
+    });
+
+    function disableAccordionClicks() {
+        myAccordion.querySelectorAll('.accordion-button').forEach(btn => btn.style.pointerEvents = 'none');
+    }
+
+    function enableAccordionClicks() {
+        myAccordion.querySelectorAll('.accordion-button').forEach(btn => btn.style.pointerEvents = 'auto');
+    }
+}
+
 // ==========================================
 // LÓGICA DEL CHATBOT CON GEMINI API
 // ==========================================
