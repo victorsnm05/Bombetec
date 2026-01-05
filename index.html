@@ -31,83 +31,90 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Librería EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <!-- SEO =================================================================================================== CAMBIAR URL -->
+    <!-- SEO -->
     <script type="application/ld+json">
-    [   {
-            "@context": "https://schema.org",
-            "@type": "GeneralContractor",
-            "name": "Bombetec - Bombeos Tecnológicos de Hormigón",
-            "image": "img/fotoMiniatura.png",
-            "description": "Empresa especializada en bombeos de hormigón en Toledo y alrededores. Soluciones tecnológicas para construcción.",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Olías del Rey",
-                "addressRegion": "TO",
-                "addressCountry": "ES"
+        [
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Bombetec",
+                "url": "https://www.bombeos-bombetec.com"
             },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "39.91017",
-                "longitude": "-4.00761"
-            },
-            "url": "https://www.bombeos-bombetec.com",
-            "telephone": "+34607342012",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday"
+            {
+                "@context": "https://schema.org",
+                "@type": "GeneralContractor",
+                "name": "Bombetec",
+                "image": "img/fotoMiniatura_sinSLL.gif",
+                "description": "Empresa especializada en bombeos de hormigón en Toledo y alrededores. Soluciones tecnológicas para construcción.",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Olías del Rey",
+                    "addressRegion": "TO",
+                    "addressCountry": "ES"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": "39.91017",
+                    "longitude": "-4.00761"
+                },
+                "url": "https://www.bombeos-bombetec.com",
+                "telephone": "+34607342012",
+                "openingHoursSpecification": [
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": [
+                            "Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday"
+                        ],
+                        "opens": "09:00",
+                        "closes": "18:00"
+                    },
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": "Friday",
+                        "opens": "09:00",
+                        "closes": "13:00"
+                    }
                 ],
-                "opens": "09:00",
-                "closes": "18:00"
-              },
-                {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": "Friday",
-                    "opens": "09:00",
-                    "closes": "13:00"
-                }
-            ],
-            "priceRange": "$$"
-        },
-        {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "¿Con cuánta antelación debo reservar el servicio?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Recomendamos reservar con al menos 7 - 14 días de antelación para asegurar la disponibilidad del camión ideal para su obra. No obstante, si tiene una urgencia, llámenos e intentaremos adaptar nuestra agenda. * En casos de alta demanda, los tiempos de reserva pueden variar."
-          }
-        }, {
-            "@type": "Question",
-            "name": "¿Cuál es el radio de servicio de Bombetec?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Nuestra base operativa está en Toledo capital. Damos servicio prioritario a toda la provincia y también cubrimos zonas limítrofes de Madrid sur y Ciudad Real. Si no sabe si su obra entra en nuestra zona, puede contactarnos en nuestro formulario de contacto o preguntar a nuestro asistente con IA."
-          }
-        }, {
-            "@type": "Question",
-            "name": "¿Hacéis bombeo para particulares o solo grandes obras?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Trabajamos para ambos. Desde grandes soleras para naves industriales en polígonos hasta cimentaciones de chalets o piscinas para particulares."
-          }
-        }, {
-            "@type": "Question",
-            "name": "¿Cómo se calcula el precio del servicio de bombeo de hormigón?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "El presupuesto depende del volumen de hormigón (m3), la distancia de la obra y el tipo de bomba necesaria. Contacta con nosotros para un presupuesto sin compromiso."
-          }
-        }]
-        }
-    ]
+                "priceRange": "$$"
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "¿Con cuánta antelación debo reservar el servicio?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Recomendamos reservar con al menos 7 - 14 días de antelación para asegurar la disponibilidad del camión ideal para su obra. No obstante, si tiene una urgencia, llámenos e intentaremos adaptar nuestra agenda. * En casos de alta demanda, los tiempos de reserva pueden variar."
+                        }
+                    }, {
+                        "@type": "Question",
+                        "name": "¿Cuál es el radio de servicio de Bombetec?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Nuestra base operativa está en Toledo capital. Damos servicio prioritario a toda la provincia y también cubrimos zonas limítrofes de Madrid sur y Ciudad Real. Si no sabe si su obra entra en nuestra zona, puede contactarnos en nuestro formulario de contacto o preguntar a nuestro asistente con IA."
+                        }
+                    }, {
+                        "@type": "Question",
+                        "name": "¿Hacéis bombeo para particulares o solo grandes obras?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Trabajamos para ambos. Desde grandes soleras para naves industriales en polígonos hasta cimentaciones de chalets o piscinas para particulares."
+                        }
+                    }, {
+                        "@type": "Question",
+                        "name": "¿Cómo se calcula el precio del servicio de bombeo de hormigón?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "El presupuesto depende del volumen de hormigón (m3), la distancia de la obra y el tipo de bomba necesaria. Contacta con nosotros para un presupuesto sin compromiso."
+                        }
+                    }]
+            }
+        ]
     </script>
 </head>
 
