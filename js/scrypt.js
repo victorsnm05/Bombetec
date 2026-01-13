@@ -194,32 +194,6 @@ if (myAccordion) {
 // LÓGICA DEL CHATBOT CON GEMINI API
 // ==========================================
 
-// Configuración API Gemini
-const apiKey = "AIzaSyDbbQbZ0Ro2kOA2Ma-t29vBVFnwZzMKTDk";
-
-// Contexto para la IA: Le decimos quién es y qué sabe
-const systemContext = `
-Eres el asistente virtual experto de Bombetec, una empresa líder en bombeos de hormigón con sede en Toledo, España.
-Tu tono es profesional, cercano y eficiente. Usas emojis ocasionalmente (🏗️, 🚛, ✅) pero sin excederte.
-
-INFORMACIÓN CLAVE DE LA EMPRESA:
-- Ubicación: Toledo y alrededores.
-- Servicios: Bombeo de hormigón, pavimentación industrial, cimentaciones, losas, y trabajos en zonas de difícil acceso (calles estrechas, cascos antiguos) y gran altura.
-- Flota: Camiones bomba modernos de última generación y equipos para accesos difíciles.
-- Contacto: Teléfono 607 342 012, email bombetec@hotmail.com.
-- Horario: Lunes a Jueves de 9:00 a 18:00 y Viernes de 9:00 a 13:00.
-
-REGLAS DE RESPUESTA:
-1. Si preguntan PRECIOS: Di amablemente que dependen del volumen (m³) y la ubicación exacta. Anímales a llamar al teléfono o usar el formulario de contacto para un presupuesto personalizado. NO inventes precios.
-2. Si preguntan ZONAS: Confirma que trabajas en la provincia de Toledo y alrededores. Si preguntan por una zona muy lejana (ej. Barcelona, León, Sevilla), di que nuestra base está en Toledo y operamos principalmente en la zona centro.
-3. Si preguntan si eres un robot: Di que eres el asistente IA de Bombetec.
-4. Responde siempre en Español.
-5. Sé muy conciso. No escribas parrafadas enormes. LONGITUD MÁXIMA: 2 o 3 frases cortas. (Máx 40 palabras).
-6. No tienes por qué presentarte en cada una de las respuestas. Ya sabe quien eres. NO uses saludos largos ni despedidas tipo "Espero haberte ayudado". Ve directo a la respuesta.
-7. Tono: Profesional pero directo.
-8. NO des fechas de reserva, siempre para hacer una reserva, el usuario debe comunicarse por los medios con la empresa (llamada, whatsapp, mediante el formulario, etc.)
-`;
-
 const chatToggle = document.getElementById('chat-toggle-btn');
 const chatClose = document.getElementById('chat-close-btn');
 const chatBox = document.getElementById('chat-box');
@@ -252,55 +226,34 @@ async function sendMessage() {
     const loadingId = addLoadingMessage();
 
     try {
-        // Construimos la URL dentro de la función para asegurar que usamos la apiKey correcta
-        const currentKey = typeof apiKey !== 'undefined' ? apiKey : '';
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${currentKey}`;
-
-        // 3. Llamada a la API de Gemini
-        const response = await fetch(apiUrl, {
+        // AHORA LLAMAMOS A TU PROPIO BACKEND EN VERCEL
+        // No hay API Key aquí, ni prompts del sistema. Todo está oculto.
+        const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: text }]
-                }],
-                systemInstruction: {
-                    parts: [{ text: systemContext }]
-                }
-            })
+            body: JSON.stringify({ message: text })
         });
 
         const data = await response.json();
 
-        // 4. Eliminar "Escribiendo..."
+        // 3. Eliminar "Escribiendo..."
         removeMessage(loadingId);
 
-        // 5. Procesar respuesta
-        if (response.ok && data.candidates && data.candidates.length > 0) {
-            const aiText = data.candidates[0].content.parts[0].text;
+        if (response.ok && data.reply) {
             // Convertir markdown básico a HTML (negritas)
-            const formattedText = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            const formattedText = data.reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             addMessage(formattedText, 'bot');
         } else {
-            console.error('Error detallado de Gemini:', data); // Mira la consola con F12 para ver el error real
-
-            let errorMsg = "Lo siento, tuve un pequeño problema de conexión. ";
-            if (data.error && data.error.message) {
-                // Mensaje técnico en consola, mensaje amable al usuario
-                console.warn("Mensaje API:", data.error.message);
-                if (data.error.code === 400) errorMsg += "(Error de configuración API)";
-            }
-
-            errorMsg += "Por favor llama al 607 342 012.";
-            addMessage(errorMsg, 'bot');
+            console.error('Error:', data);
+            addMessage("Lo siento, estoy teniendo problemas de conexión. Por favor llama al 607 342 012.", 'bot');
         }
 
     } catch (error) {
-        console.error('Error de Red/Sistema:', error);
+        console.error('Error de Red:', error);
         removeMessage(loadingId);
-        addMessage("Error de conexión. Por favor verifica tu internet o inténtalo más tarde.", 'bot');
+        addMessage("Error de conexión. Verifica tu internet.", 'bot');
     }
 }
 
@@ -335,7 +288,7 @@ function removeMessage(id) {
     if (el) el.remove();
 }
 
-// Estilo para la animación de carga (inyectado dinámicamente)
+// Estilos dinámicos para el loader
 const style = document.createElement('style');
 style.innerHTML = `
 .typing-dots span {
