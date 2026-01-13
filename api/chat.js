@@ -39,22 +39,33 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { message } = req.body;
+        // 1. Verificamos la clave
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            throw new Error("Falta la API Key en Vercel");
+        }
 
-        // Usamos el modelo Flash (rápido y eficiente)
+        // 2. Inicializamos Gemini
+        const genAI = new GoogleGenerativeAI(apiKey);
+
+        // 3. USAMOS EL MODELO ESTÁNDAR QUE NO FALLA
+        // Si flash te da problemas, usa "gemini-pro" temporalmente para probar
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-2.5-flash-preview-09-2025",
             systemInstruction: systemContext
         });
 
+        // 4. Generamos respuesta
+        const { message } = req.body;
         const result = await model.generateContent(message);
         const response = await result.response;
         const text = response.text();
 
-        return res.status(200).json({ reply: text });
+        res.status(200).json({ reply: text });
 
     } catch (error) {
-        console.error("Error en el backend:", error);
-        return res.status(500).json({ error: 'Error procesando la solicitud en el servidor.' });
+        console.error("ERROR SERVIDOR:", error);
+        // Devolvemos el error exacto para que lo veas en la consola del navegador
+        res.status(500).json({ error: error.message || "Error desconocido" });
     }
 }
